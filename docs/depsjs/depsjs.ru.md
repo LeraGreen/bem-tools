@@ -41,7 +41,7 @@ block('search-form')(
 
 **Пример**
 
-![Сборка БЭМ-проекта](https://rawgit.com/bem-archive/bem-tools/blob/godfreyd-deps/docs/depsjs/build__decl__search-form.svg)
+![Сборка БЭМ-проекта](https://rawgit.com/bem-archive/bem-tools/godfreyd-deps/docs/depsjs/build__decl__search-form.svg#)
 
 Для явного указания зависимостей от технологии используется поле `tech`. По зависимостям подключатся БЭМ-сущности в описанной технологии.
 
@@ -59,7 +59,7 @@ block('search-form')(
 })
 ```
 
-![Сборка по технологии ](https://rawgit.com/bem-archive/bem-tools/blob/godfreyd-deps/docs/depsjs/build__decl__search-form__tech.svg)
+![Сборка по технологии ](https://rawgit.com/bem-archive/bem-tools/godfreyd-deps/docs/depsjs/build__decl__search-form__tech.svg#)
 
 ## Используемые обозначения
 
