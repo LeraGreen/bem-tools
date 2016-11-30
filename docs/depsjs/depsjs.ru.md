@@ -13,31 +13,53 @@
 
 **Пример**
 
-*Шаблон `b1.bemhtml.js`*
+*Шаблон `search-form.bemhtml.js`*
 
 ```js
-block('b1')(
+block('search-form')(
     content()({
-        block: 'b2'
+        block: 'button'
     },{
-        block: 'b3'
+        block: 'input'
     })
 );
 ```
 
-Чтобы подключить на проект стили и скрипты блоков `b2` и `b3м, понадобится создать файл `b1.deps.js`:
+Чтобы подключить на проект стили и скрипты блоков `button` и `input`, понадобится создать файл `search-form.deps.js`:
 
 ```js
-/* b1 ---> b2;  b1 ---> b3 */
+/* search-form ---> button;  search-form ---> input */
 ({
     shouldDeps: [
-        { block: 'b2' },
-        { block: 'b3' }
+        { block: 'button' },
+        { block: 'input' }
     ]
 })
 ```
 
-По зависимостям подключатся все задекларированные БЭМ-сущности.
+В процессе сборки все описанные для блоков `button` и `input` технологии будут автоматически собраны в финальные наборы файлов (бандлы) со всех [уровней переопределения](https://ru.bem.info/methodology/key-concepts/#Уровень-переопределения).
+
+**Пример**
+
+![Сборка БЭМ-проекта](https://rawgit.com/bem-archive/bem-tools/blob/godfreyd-deps/docs/depsjs/build__decl__search-form.svg)
+
+Для явного указания зависимостей от технологии используется поле `tech`. По зависимостям подключатся БЭМ-сущности в описанной технологии.
+
+**Пример**
+
+*Файл `search-form.deps.js`*
+
+```js
+/* search-form ---> button.bemhtml;  search-form ---> input.bemhtml */
+({
+    shouldDeps: [
+        { block: 'button', tech: 'bemhtml' },
+        { block: 'input', tech: 'bemhtml' }
+    ]
+})
+```
+
+![Сборка по технологии ](https://rawgit.com/bem-archive/bem-tools/blob/godfreyd-deps/docs/depsjs/build__decl__search-form__tech.svg)
 
 ## Используемые обозначения
 
@@ -46,9 +68,11 @@ block('b1')(
 * `/* b1 ---> b2 */` — блок `b1` зависит от блока `b2`;
 * `/* b1 ---> b1__e1 */` — блок `b1` зависит от своего элемента `b1__e1`;
 * `/* b1 ---> b1__e1_m1_v1 */` — блок `b1` зависит от своего модификатора `b1__e1_m1_v1`;
-* `/* b1(js) ---> b2(bemhtml) */` — блок `b1` в технологии реализации JavaScript зависит от блока `b2` в технологии реализации BEMHTML.
+* `/* b1.js ---> b2.bemhtml */` — блок `b1` в технологии реализации JavaScript зависит от блока `b2` в технологии реализации BEMHTML.
 
 ## Синтаксис DEPS
+
+**DEPS-сущность** — сущность, определяющая зависимость между [БЭМ-сущностями](https://ru.bem.info/methodology/key-concepts/#БЭМ-сущность).
 
 Формат представления DEPS-сущности в файле `deps.js` имеет следующий синтаксис:
 
@@ -75,7 +99,7 @@ block('b1')(
 })
 ```
 
-Все поля являются опциональными. Поля `block`, `elem`, `mod`, `val`, `tech` указывают, для какой сущности/технологии необходимо подключить зависимость, а `mustDeps`, `shouldDeps`, `noDeps` определяют зависимость.
+Все поля являются опциональными. Поля `block`, `elem`, `mod`, `val`, `tech` указывают, для какой BEM-сущности/технологии необходимо подключить зависимость, а `mustDeps`, `shouldDeps`, `noDeps` определяют зависимость.
 
 Поля DEPS-сущности:
 
@@ -176,7 +200,7 @@ block('b1')(
 Файл `b1.deps.js`:
 
 ```js
-/* b1(js) ---> b1_m1_v1(bemhtml) */
+/* b1.js ---> b1_m1_v1.bemhtml */
 ({
     tech: 'js',
     mustDeps: [
